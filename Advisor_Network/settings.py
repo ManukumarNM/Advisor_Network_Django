@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os 
+import django_heroku
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -80,24 +82,29 @@ WSGI_APPLICATION = 'Advisor_Network.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'advisor_api',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'password',
-
-        'HOST': '52.175.251.223',
-
-        'PORT': '5432',
-
-    }
-
+    'default': dj_database_url.config()
 }
+
+
+# DATABASES = {
+
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': 'advisor_api',
+
+#         'USER': 'postgres',
+
+#         'PASSWORD': 'password',
+
+#         'HOST': '52.175.251.223',
+
+#         'PORT': '5432',
+
+#     }
+
+# }
 
 
 # Password validation
@@ -163,4 +170,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-
+django_heroku.settings(locals())
